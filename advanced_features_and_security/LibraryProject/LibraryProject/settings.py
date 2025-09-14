@@ -1,3 +1,5 @@
+# If using a proxy/load balancer (e.g., Heroku, AWS ELB), enable this to ensure Django detects HTTPS properly
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 """
 Django settings for LibraryProject project.
 
