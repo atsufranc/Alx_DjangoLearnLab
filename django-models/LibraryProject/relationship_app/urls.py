@@ -5,8 +5,11 @@ from .views import register, admin_view, librarian_view, member_view, add_book, 
 from . import views
 urlpatterns = [
     path("books/", list_books, name="list_books"),
+    path("add_book/", add_book, name="add_book"),
+    path("edit_book/", list_books, name="edit_book"),
     path("library/<int:pk>/", LibraryDetailView.as_view(), name="library_detail"),
-   
+    
+    
     # Authentication URLs
     path("login/", auth_views.LoginView.as_view(template_name="relationship_app/login.html"), name="login"),
     path("logout/", auth_views.LogoutView.as_view(template_name="relationship_app/logout.html"), name="logout"),
