@@ -29,12 +29,21 @@ DEBUG = False  # Set to False in production
 # Set allowed hosts for production
 ALLOWED_HOSTS = ['yourdomain.com', 'localhost', '127.0.0.1']
 
+
 # Security settings
-SECURE_BROWSER_XSS_FILTER = True
-X_FRAME_OPTIONS = 'DENY'
-SECURE_CONTENT_TYPE_NOSNIFF = True
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
+SECURE_BROWSER_XSS_FILTER = True  # Enable browser XSS filter
+X_FRAME_OPTIONS = 'DENY'  # Prevent clickjacking
+SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevent MIME-type sniffing
+CSRF_COOKIE_SECURE = True  # CSRF cookie only sent over HTTPS
+SESSION_COOKIE_SECURE = True  # Session cookie only sent over HTTPS
+
+# Enforce HTTPS
+SECURE_SSL_REDIRECT = True  # Redirect all HTTP to HTTPS
+
+# HTTP Strict Transport Security (HSTS)
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
 
 # Content Security Policy (CSP) example using django-csp (install and add to INSTALLED_APPS and MIDDLEWARE)
 # INSTALLED_APPS += ['csp']
