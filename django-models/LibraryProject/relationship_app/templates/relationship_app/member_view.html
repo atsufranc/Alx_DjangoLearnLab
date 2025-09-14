@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Member Dashboard</h2>
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Welcome, {{ user.get_full_name|default:user.username }}!</h5>
+            <p class="card-text">Email: {{ user.email }}</p>
+            <p class="card-text">Member Since: {{ user.date_joined|date:"F d, Y" }}</p>
+        </div>
+    </div>
+
+    <h4>Your Borrowed Books</h4>
+    {% if borrowed_books %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Borrowed On</th>
+                    <th>Due Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in borrowed_books %}
+                <tr>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.borrowed_on|date:"M d, Y" }}</td>
+                    <td>{{ book.due_date|date:"M d, Y" }}</td>
+                    <td>
+                        {% if book.is_overdue %}
+                            <span class="badge bg-danger">Overdue</span>
+                        {% else %}
+                            <span class="badge bg-success">On Time</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>You have not borrowed any books yet.</p>
+    {% endif %}
+</div>
+{% endblock %}
