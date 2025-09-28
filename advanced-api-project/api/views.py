@@ -1,5 +1,7 @@
+from django_filters import rest_framework
 
-from rest_framework import generics, permissions
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from django_filters import rest_framework
 from django_filters import rest_framework
 from .models import Book
@@ -9,7 +11,7 @@ from .serializers import BookSerializer
 class BookListView(generics.ListAPIView):
 	queryset = Book.objects.all()
 	serializer_class = BookSerializer
-	permission_classes = [permissions.AllowAny]
+	permission_classes = [IsAuthenticatedOrReadOnly]
 	# Enable filtering, searching, and ordering for Book model
 	filter_backends = [
 		'django_filters.rest_framework.DjangoFilterBackend',
@@ -31,25 +33,25 @@ class BookListView(generics.ListAPIView):
 class BookDetailView(generics.RetrieveAPIView):
 	queryset = Book.objects.all()
 	serializer_class = BookSerializer
-	permission_classes = [permissions.AllowAny]
+	permission_classes = [IsAuthenticatedOrReadOnly]
 
 # BookCreateView: Add a new book (authenticated users only)
 class BookCreateView(generics.CreateAPIView):
 	queryset = Book.objects.all()
 	serializer_class = BookSerializer
-	permission_classes = [permissions.IsAuthenticated]
+	permission_classes = [IsAuthenticated]
 
 # BookUpdateView: Modify an existing book (authenticated users only)
 class BookUpdateView(generics.UpdateAPIView):
 	queryset = Book.objects.all()
 	serializer_class = BookSerializer
-	permission_classes = [permissions.IsAuthenticated]
+	permission_classes = [IsAuthenticated]
 
 # BookDeleteView: Remove a book (authenticated users only)
 class BookDeleteView(generics.DestroyAPIView):
 	queryset = Book.objects.all()
 	serializer_class = BookSerializer
-	permission_classes = [permissions.IsAuthenticated]
+	permission_classes = [IsAuthenticated]
 
 # Permissions are enforced using DRF's permission_classes attribute.
 # Create, update, and delete operations require authentication, while list and detail views are open for read-only access.
