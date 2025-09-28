@@ -20,8 +20,12 @@ from rest_framework.routers import DefaultRouter
 # from api import views   # Import views from the api app
 # router = DefaultRouter()
 # router.register(r'books_all', 'api.views.BookViewSet', basename='book_all')
+from rest_framework.authtoken import views
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path(r'^api-token-auth/', views.obtain_auth_token),
     path('api/', include('api.urls')),  # Include the URLs from the api app
    # path('', include(router.urls)),  # This includes all routes registered with the router
     
